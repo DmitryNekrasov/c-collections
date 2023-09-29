@@ -1,0 +1,136 @@
+#include <malloc.h>
+#include <stdio.h>
+
+#include "hash_map.h"
+#include "constants.h"
+
+#define LOAD_FACTOR 0.75
+#define INITIAL_BUCKET_NUMBER 8
+
+struct list_node {
+    struct string* key;
+    int value;
+    struct list_node* next;
+};
+
+struct hash_map {
+    int size;
+    int bucket_number;
+    double load_factor;
+    struct list_node** buckets;
+};
+
+struct list_node* init_list_node(struct string* key, int value, struct list_node* next) {
+    struct list_node* new_node = (struct list_node*) malloc(sizeof (struct list_node));
+    new_node->key = key;
+    new_node->value = value;
+    new_node->next = next;
+    return new_node;
+}
+
+struct list_node* lookup(struct list_node* node, const struct string* str) {
+    while (node != NULL) {
+        if (equals(node->key, str)) {
+            return node;
+        }
+        node = node->next;
+    }
+    return NULL;
+}
+
+void allocate_buckets(struct hash_map* this) {
+    this->buckets = (struct list_node**) malloc(sizeof (struct list_node*) * this->bucket_number);
+    for (int i = 0, ei = this->bucket_number; i < ei; i++) {
+        this->buckets[i] = (struct list_node*) malloc(sizeof (struct list_node));
+        this->buckets[i]->next = NULL;
+    }
+}
+
+struct hash_map* init_hash_map() {
+    struct hash_map* map = (struct hash_map*) malloc(sizeof (struct hash_map));
+    map->size = 0;
+    map->load_factor = LOAD_FACTOR;
+    map->bucket_number = INITIAL_BUCKET_NUMBER;
+    allocate_buckets(map);
+    return map;
+}
+
+struct list_node* head_by_key(const struct hash_map* this, const struct string* key) {
+    int bucket_index = hash_code(key) & (this->bucket_number - 1);
+    return this->buckets[bucket_index];
+}
+
+void put_internal(struct  hash_map* this, const struct string* key, int value, int need_lookup) {
+    struct list_node* head = head_by_key(this, key);
+    struct list_node* node = need_lookup ? lookup(head->next, key) : NULL;
+    if (node != NULL) {
+        node->value = value;
+        destroy_string(key);
+    } else {
+        this->size++;
+        struct list_node* new_node = init_list_node(key, value, head->next);
+        head->next = new_node;
+    }
+}
+
+void realloc_map(struct hash_map* this) {
+    struct list_node** old_buckets = this->buckets;
+    int old_bucket_number = this->bucket_number;
+    this->bucket_number *= 2;
+    this->size = 0;
+    allocate_buckets(this);
+    for (int i = 0; i < old_bucket_number; i++) {
+        struct list_node* node = old_buckets[i]->next;
+        while (node != NULL) {
+            put_internal(this, node->key, node->value, FALSE);
+            struct list_node* next = node->next;
+            free(node);
+            node = next;
+        }
+        free(old_buckets[i]);
+    }
+    free(old_buckets);
+}
+
+void put(struct hash_map* this, const char* c_str, int value) {
+    if (this->size > this->load_factor * this->bucket_number) {
+        realloc_map(this);
+    }
+    struct string* key = init_string(c_str);
+    put_internal(this, key, value, TRUE);
+}
+
+int get(const struct hash_map* this, const char* c_str) {
+    struct string* key = init_string(c_str);
+    struct list_node* head = head_by_key(this, key);
+    struct list_node* node = lookup(head->next, key);
+    int result = node == NULL ? INT_MIN_VALUE : node->value;
+    destroy_string(key);
+    return result;
+}
+
+int contains(const struct hash_map* this, const char* c_str) {
+    struct string* key = init_string(c_str);
+    struct list_node* head = head_by_key(this, key);
+    int exist = lookup(head->next, key) != NULL;
+    destroy_string(key);
+    return exist;
+}
+
+int size(const struct hash_map* this) {
+    return this->size;
+}
+
+void print_map(const struct hash_map* this) {
+    for (int i = 0, ei = this->bucket_number; i < ei; i++) {
+        printf("[%2d]", i);
+        struct list_node* node = this->buckets[i]->next;
+        while (node != NULL) {
+            printf(" -> (");
+            print_string(node->key);
+            printf(", %d)", node->value);
+            node = node->next;
+        }
+        printf(" -> nil\n");
+    }
+}
