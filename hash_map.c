@@ -164,11 +164,11 @@ void get_key_values(const struct hash_map* this, char** keys, int* values) {
 
 void print_map(const struct hash_map* this) {
     int n = this->size;
-    char** keys = (char**) malloc(sizeof (char*) * n);
-    int* values = (int*) malloc(sizeof (int) * n);
-    get_key_values(this, keys, values);
     printf("{");
     if (n > 0) {
+        char** keys = (char**) malloc(sizeof (char*) * n);
+        int* values = (int*) malloc(sizeof (int) * n);
+        get_key_values(this, keys, values);
         for (int i = 0; i < n - 1; i++) {
             printf("%s=%d, ", keys[i], values[i]);
         }
