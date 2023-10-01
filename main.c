@@ -46,5 +46,7 @@ int main() {
 
     print_map(map);
 
+    destroy_map(map);
+
     return 0;
 }

@@ -134,3 +134,17 @@ void print_map(const struct hash_map* this) {
         printf(" -> nil\n");
     }
 }
+
+void destroy_map(struct hash_map* this) {
+    for (int i = 0, ei = this->bucket_number; i < ei; i++) {
+        struct list_node* node = this->buckets[i];
+        while (node != NULL) {
+            free(node->key);
+            struct list_node* next = node->next;
+            free(node);
+            node = next;
+        }
+    }
+    free(this->buckets);
+    free(this);
+}

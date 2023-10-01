@@ -11,5 +11,6 @@ int get(const struct hash_map* this, const char* key);
 int contains(const struct hash_map* this, const char* key);
 int size(const struct hash_map* this);
 void print_map(const struct hash_map* this);
+void destroy_map(struct hash_map* this);
 
 #endif //HASH_MAP_HASH_MAP_H
