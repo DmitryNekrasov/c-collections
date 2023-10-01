@@ -173,6 +173,8 @@ void print_map(const struct hash_map* this) {
             printf("%s=%d, ", keys[i], values[i]);
         }
         printf("%s=%d", keys[n - 1], values[n - 1]);
+        free(values);
+        free(keys);
     }
     printf("}\n");
 }
