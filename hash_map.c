@@ -121,7 +121,7 @@ int size(const struct hash_map* this) {
     return this->size;
 }
 
-void print_map(const struct hash_map* this) {
+void print_map_debug(const struct hash_map* this) {
     for (int i = 0, ei = this->bucket_number; i < ei; i++) {
         printf("[%2d]", i);
         struct list_node* node = this->buckets[i]->next;
@@ -147,4 +147,32 @@ void destroy_map(struct hash_map* this) {
     }
     free(this->buckets);
     free(this);
+}
+
+void get_key_values(const struct hash_map* this, char** keys, int* values) {
+    int index = 0;
+    for (int i = 0, ei = this->bucket_number; i < ei; i++) {
+        const struct list_node* node = this->buckets[i]->next;
+        while (node != NULL) {
+            keys[index] = c_str(node->key);
+            values[index] = node->value;
+            index++;
+            node = node->next;
+        }
+    }
+}
+
+void print_map(const struct hash_map* this) {
+    int n = this->size;
+    char** keys = (char**) malloc(sizeof (char*) * n);
+    int* values = (int*) malloc(sizeof (int) * n);
+    get_key_values(this, keys, values);
+    printf("{");
+    if (n > 0) {
+        for (int i = 0; i < n - 1; i++) {
+            printf("%s=%d, ", keys[i], values[i]);
+        }
+        printf("%s=%d", keys[n - 1], values[n - 1]);
+    }
+    printf("}\n");
 }

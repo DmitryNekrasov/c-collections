@@ -52,3 +52,7 @@ int length(const struct string* this) {
 int hash_code(const struct string* this) {
     return this->hash_code;
 }
+
+const char* c_str(const struct string* this) {
+    return this->data;
+}

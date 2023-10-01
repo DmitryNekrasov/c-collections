@@ -9,5 +9,6 @@ int equals(const struct string* str1, const struct string* str2);
 void print_string(const struct string* this);
 int length(const struct string* this);
 int hash_code(const struct string* this);
+const char* c_str(const struct string* this);
 
 #endif //HASH_MAP_STRING_H

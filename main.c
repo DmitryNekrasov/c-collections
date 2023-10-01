@@ -44,6 +44,7 @@ int main() {
 
     printf("get = %d\n\n", get(map, "fghfg"));
 
+    print_map_debug(map);
     print_map(map);
 
     destroy_map(map);
