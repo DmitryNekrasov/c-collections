@@ -5,6 +5,8 @@
 #include "string.h"
 #include "constants.h"
 
+#define BASE 31
+
 struct string {
     int length;
     int hash_code;
@@ -14,7 +16,7 @@ struct string {
 int hash_code_internal(const char* c_str, int length) {
     int h = 0;
     for (int i = 0; i < length; i++) {
-        h = 31 * h + c_str[i];
+        h = BASE * h + c_str[i];
     }
     return h;
 }
