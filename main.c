@@ -9,6 +9,17 @@
 
 char text[MAX_STR_NUMBER][MAX_LEN];
 
+void to_lower_case(char* s) {
+    static const int diff = 'a' - 'A';
+    int i = 0;
+    while (s[i] != '\0') {
+        if (s[i] >= 'A' && s[i] <= 'Z') {
+            s[i] += diff;
+        }
+        i++;
+    }
+}
+
 int main(int argc, char* argv[]) {
     if (argc == 2) {
         const char* path = argv[1];
@@ -21,6 +32,7 @@ int main(int argc, char* argv[]) {
                 char* str = text[index];
                 char* token = strtok(str, DELIMITERS);
                 while (token) {
+                    to_lower_case(token);
                     int count = contains(map, token) ? get(map, token) : 0;
                     put(map, token, count + 1);
                     token = strtok(NULL, DELIMITERS);
