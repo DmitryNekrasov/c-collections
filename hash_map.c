@@ -60,7 +60,7 @@ struct list_node* head_by_key(const struct hash_map* this, const struct string* 
     return this->buckets[bucket_index];
 }
 
-void put_internal(struct  hash_map* this, const struct string* key, int value, int need_lookup) {
+void put_internal(struct  hash_map* this, struct string* key, int value, int need_lookup) {
     struct list_node* head = head_by_key(this, key);
     struct list_node* node = need_lookup ? lookup(head->next, key) : NULL;
     if (node != NULL) {
@@ -137,13 +137,14 @@ void print_map_debug(const struct hash_map* this) {
 
 void destroy_map(struct hash_map* this) {
     for (int i = 0, ei = this->bucket_number; i < ei; i++) {
-        struct list_node* node = this->buckets[i];
+        struct list_node* node = this->buckets[i]->next;
         while (node != NULL) {
-            free(node->key);
+            destroy_string(node->key);
             struct list_node* next = node->next;
             free(node);
             node = next;
         }
+        free(this->buckets[i]);
     }
     free(this->buckets);
     free(this);
