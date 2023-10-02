@@ -29,8 +29,7 @@ int main(int argc, char* argv[]) {
             int token_count = 0;
             struct hash_map* map = init_hash_map();
             while (fgets(text[index], MAX_LEN, file)) {
-                char* str = text[index];
-                char* token = strtok(str, DELIMITERS);
+                char* token = strtok(text[index], DELIMITERS);
                 while (token) {
                     to_lower_case(token);
                     int count = contains(map, token) ? get(map, token) : 0;
