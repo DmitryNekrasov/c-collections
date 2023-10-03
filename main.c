@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <malloc.h>
 
 #include "hash_map.h"
 
@@ -18,6 +19,19 @@ void to_lower_case(char* s) {
         }
         i++;
     }
+}
+
+void remove_and_trim(struct hash_map* map) {
+    char** keys = (char**) malloc(sizeof (char*) * size(map));
+    get_key_values(map, keys, NULL);
+    for (int i = 0, ei = size(map); i < ei; i += 2) {
+        remove_by_key(map, keys[i]);
+    }
+    free(keys);
+    trim_to_size(map);
+    print_map_debug(map);
+    print_map(map);
+    printf("size = %d\n", size(map));
 }
 
 int main(int argc, char* argv[]) {
@@ -39,12 +53,11 @@ int main(int argc, char* argv[]) {
                 }
                 index++;
             }
-            remove_by_key(map, "lobortis");
-            remove_by_key(map, "not_exist");
             print_map_debug(map);
             print_map(map);
             printf("size = %d\n", size(map));
             printf("token_count = %d\n", token_count);
+            remove_and_trim(map);
             destroy_map(map);
             fclose(file);
         }

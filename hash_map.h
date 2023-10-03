@@ -15,5 +15,6 @@ void destroy_map(struct hash_map* this);
 void get_key_values(const struct hash_map* this, char** keys, int* values);
 void print_map(const struct hash_map* this);
 int remove_by_key(struct hash_map* this, const char* key);
+void trim_to_size(struct hash_map* this);
 
 #endif //HASH_MAP_HASH_MAP_H

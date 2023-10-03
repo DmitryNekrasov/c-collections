@@ -77,10 +77,10 @@ void put_internal(struct  hash_map* this, struct string* key, int value, int nee
     }
 }
 
-void realloc_map(struct hash_map* this) {
+void realloc_map(struct hash_map* this, int new_bucket_number) {
     struct list_node** old_buckets = this->buckets;
     int old_bucket_number = this->bucket_number;
-    this->bucket_number *= 2;
+    this->bucket_number = new_bucket_number;
     this->size = 0;
     allocate_buckets(this);
     for (int i = 0; i < old_bucket_number; i++) {
@@ -98,7 +98,7 @@ void realloc_map(struct hash_map* this) {
 
 void put(struct hash_map* this, const char* c_str, int value) {
     if (this->size > this->load_factor * this->bucket_number) {
-        realloc_map(this);
+        realloc_map(this, this->bucket_number * 2);
     }
     struct string* key = init_string(c_str);
     put_internal(this, key, value, TRUE);
@@ -159,8 +159,12 @@ void get_key_values(const struct hash_map* this, char** keys, int* values) {
     for (int i = 0, ei = this->bucket_number; i < ei; i++) {
         const struct list_node* node = this->buckets[i]->next;
         while (node != NULL) {
-            keys[index] = c_str(node->key);
-            values[index] = node->value;
+            if (keys != NULL) {
+                keys[index] = c_str(node->key);
+            }
+            if (values != NULL) {
+                values[index] = node->value;
+            }
             index++;
             node = node->next;
         }
@@ -192,10 +196,29 @@ int remove_by_key(struct hash_map* this, const char* c_str) {
     int find = FALSE;
     if (node != NULL) {
         find = TRUE;
+        this->size--;
         prev->next = node->next;
         destroy_string(node->key);
         free(node);
     }
     destroy_string(key);
     return find;
+}
+
+int nearest_power_of_two(int x) {
+    while ((x & (x - 1)) != 0) {
+        x = x & (x - 1);
+    }
+    return x << 1;
+}
+
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+void trim_to_size(struct hash_map* this) {
+    int new_bucket_number = nearest_power_of_two((int) (this->size / this->load_factor));
+    if (new_bucket_number != this->bucket_number) {
+        realloc_map(this, max(INITIAL_BUCKET_NUMBER, new_bucket_number));
+    }
 }
