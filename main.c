@@ -39,6 +39,8 @@ int main(int argc, char* argv[]) {
                 }
                 index++;
             }
+            remove_by_key(map, "lobortis");
+            remove_by_key(map, "not_exist");
             print_map_debug(map);
             print_map(map);
             printf("size = %d\n", size(map));

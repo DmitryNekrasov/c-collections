@@ -28,10 +28,13 @@ struct list_node* init_list_node(struct string* key, int value, struct list_node
     return new_node;
 }
 
-struct list_node* lookup(struct list_node* node, const struct string* str) {
+struct list_node* lookup(struct list_node* node, const struct string* str, struct list_node** prev) {
     while (node != NULL) {
         if (equals(node->key, str)) {
             return node;
+        }
+        if (prev != NULL) {
+            *prev = node;
         }
         node = node->next;
     }
@@ -42,6 +45,7 @@ void allocate_buckets(struct hash_map* this) {
     this->buckets = (struct list_node**) malloc(sizeof (struct list_node*) * this->bucket_number);
     for (int i = 0, ei = this->bucket_number; i < ei; i++) {
         this->buckets[i] = (struct list_node*) malloc(sizeof (struct list_node));
+        this->buckets[i]->key = NULL;
         this->buckets[i]->next = NULL;
     }
 }
@@ -62,7 +66,7 @@ struct list_node* head_by_key(const struct hash_map* this, const struct string* 
 
 void put_internal(struct  hash_map* this, struct string* key, int value, int need_lookup) {
     struct list_node* head = head_by_key(this, key);
-    struct list_node* node = need_lookup ? lookup(head->next, key) : NULL;
+    struct list_node* node = need_lookup ? lookup(head, key, NULL) : NULL;
     if (node != NULL) {
         node->value = value;
         destroy_string(key);
@@ -103,7 +107,7 @@ void put(struct hash_map* this, const char* c_str, int value) {
 int get(const struct hash_map* this, const char* c_str) {
     struct string* key = init_string(c_str);
     struct list_node* head = head_by_key(this, key);
-    struct list_node* node = lookup(head->next, key);
+    struct list_node* node = lookup(head, key, NULL);
     int result = node == NULL ? INT_MIN_VALUE : node->value;
     destroy_string(key);
     return result;
@@ -112,7 +116,7 @@ int get(const struct hash_map* this, const char* c_str) {
 int contains(const struct hash_map* this, const char* c_str) {
     struct string* key = init_string(c_str);
     struct list_node* head = head_by_key(this, key);
-    int exist = lookup(head->next, key) != NULL;
+    int exist = lookup(head, key, NULL) != NULL;
     destroy_string(key);
     return exist;
 }
@@ -178,4 +182,20 @@ void print_map(const struct hash_map* this) {
         free(keys);
     }
     printf("}\n");
+}
+
+int remove_by_key(struct hash_map* this, const char* c_str) {
+    struct string* key = init_string(c_str);
+    struct list_node* head = head_by_key(this, key);
+    struct list_node* prev;
+    struct list_node* node = lookup(head, key, &prev);
+    int find = FALSE;
+    if (node != NULL) {
+        find = TRUE;
+        prev->next = node->next;
+        destroy_string(node->key);
+        free(node);
+    }
+    destroy_string(key);
+    return find;
 }
