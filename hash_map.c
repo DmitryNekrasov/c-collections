@@ -217,8 +217,8 @@ int max(int a, int b) {
 }
 
 void trim_to_size(struct hash_map* this) {
-    int new_bucket_number = nearest_power_of_two((int) (this->size / this->load_factor));
+    int new_bucket_number = max(INITIAL_BUCKET_NUMBER, nearest_power_of_two((int) (this->size / this->load_factor)));
     if (new_bucket_number != this->bucket_number) {
-        realloc_map(this, max(INITIAL_BUCKET_NUMBER, new_bucket_number));
+        realloc_map(this, new_bucket_number);
     }
 }
