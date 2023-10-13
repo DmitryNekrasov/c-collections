@@ -9,9 +9,9 @@ add_executable(hash_map main.c
         hash_map.h
         hash_map.c
         constants.h
-        ArrayList/array_list_internal.h
-        ArrayList/array_list_internal.c
-        ArrayList/array_list.h
+        src/ArrayList/array_list_internal.h
+        src/ArrayList/array_list_internal.c
+        src/ArrayList/array_list.h
         CuTest/CuTest.h
         CuTest/CuTest.c
         test/ArrayListSuite.c)

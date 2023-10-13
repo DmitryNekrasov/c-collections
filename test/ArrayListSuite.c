@@ -1,6 +1,6 @@
 #include "../CuTest/CuTest.h"
 
-#include "../ArrayList/array_list.h"
+#include "../src/ArrayList/array_list.h"
 
 void TestArrayListSizeEmptyList(CuTest* tc) {
     ArrayList(int) list = newArrayList(int);
