@@ -1,7 +1,7 @@
 #include <malloc.h>
 #include <string.h>
 
-#include "array_list.h"
+#include "array_list_internal.h"
 
 #define INITIAL_CAPACITY 8
 
@@ -19,12 +19,12 @@ struct __base_list* __new_array_list(int element_size) {
     return list;
 }
 
-void delete_array_list(struct __base_list* this) {
+void __delete_array_list(struct __base_list* this) {
     free(this->__data);
     free(this);
 }
 
-int al_size(struct __base_list* this) {
+int __al_size(struct __base_list* this) {
     return this->__size;
 }
 
@@ -36,6 +36,6 @@ void __al_resize(struct __base_list* this, int new_capacity, int element_size) {
     this->__capacity = new_capacity;
 }
 
-void al_clear(struct __base_list* this) {
+void __al_clear(struct __base_list* this) {
     this->__size = 0;
 }

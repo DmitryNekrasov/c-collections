@@ -9,5 +9,6 @@ add_executable(hash_map main.c
         hash_map.h
         hash_map.c
         constants.h
-        array_list.h
-        array_list.c)
+        array_list_internal.h
+        array_list_internal.c
+        array_list.h)
