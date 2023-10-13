@@ -11,4 +11,7 @@ add_executable(hash_map main.c
         constants.h
         ArrayList/array_list_internal.h
         ArrayList/array_list_internal.c
-        ArrayList/array_list.h)
+        ArrayList/array_list.h
+        CuTest/CuTest.h
+        CuTest/CuTest.c
+        test/ArrayListSuite.c)
