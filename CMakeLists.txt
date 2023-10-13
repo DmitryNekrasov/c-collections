@@ -8,4 +8,6 @@ add_executable(hash_map main.c
         string.c
         hash_map.h
         hash_map.c
-        constants.h)
+        constants.h
+        array_list.h
+        array_list.c)
