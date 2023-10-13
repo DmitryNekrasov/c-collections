@@ -2,6 +2,7 @@
 #define HASH_MAP_ARRAY_LIST_INTERNAL_H
 
 #include <stdio.h>
+#include <stdbool.h>
 
 struct __base_list;
 
@@ -44,5 +45,10 @@ void __al_resize(struct __base_list* this, int new_capacity, int element_size);
 #define _al_at(this, index) this->__data[index]
 
 void __al_clear(struct __base_list* this);
+
+bool __al_remove(struct __base_list* this, int index, int element_size);
+
+#define _al_remove(this, index) \
+    ((index < 0 || index >= this->__size) ? false : __al_remove(this, index, sizeof(*this->__data)))
 
 #endif //HASH_MAP_ARRAY_LIST_INTERNAL_H

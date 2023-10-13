@@ -39,3 +39,12 @@ void __al_resize(struct __base_list* this, int new_capacity, int element_size) {
 void __al_clear(struct __base_list* this) {
     this->__size = 0;
 }
+
+bool __al_remove(struct __base_list* this, int index, int element_size) {
+    int n = this->__size;
+    this->__size--;
+    if (index == n - 1) return true;
+    char* start_ptr = (((char*) this->__data) + index * element_size);
+    memcpy(start_ptr, start_ptr + element_size, (n - index - 1) * element_size);
+    return true;
+}

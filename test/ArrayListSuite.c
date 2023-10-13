@@ -48,10 +48,6 @@ void TestArrayListClear(CuTest* tc) {
     deleteArrayList(list);
 }
 
-void print_int(void* x) {
-    printf("%d", (int) x);
-}
-
 void TestArrayListAt(CuTest* tc) {
     ArrayList(int) list = newArrayList(int);
     int n = 32;
@@ -59,10 +55,38 @@ void TestArrayListAt(CuTest* tc) {
         alAdd(list, i * 2);
     }
 
-    alPrint(list, print_int);
     for (int i = 0, ei = alSize(list); i < ei; i++) {
         CuAssertIntEquals(tc, alAt(list, i), i * 2);
     }
+    deleteArrayList(list);
+}
+
+void print_int(void* x) {
+    printf("%d", (int) x);
+}
+
+void TestArrayListRemove(CuTest* tc) {
+    ArrayList(int) list = newArrayList(int);
+    int n = 32;
+    for (int i = 0; i < n; i++) {
+        alAdd(list, i);
+    }
+    printf("Before remove: ");
+    alPrint(list, print_int);
+    int remove_count = 10;
+    int remove_index = 5;
+    for (int i = 0; i < remove_count; i++) {
+        CuAssertTrue(tc, alRemove(list, remove_index));
+    }
+    printf("After remove:  ");
+    alPrint(list, print_int);
+    for (int i = 0; i < remove_index; i++) {
+        CuAssertIntEquals(tc, alAt(list, i), i);
+    }
+    for (int i = remove_index, ei = alSize(list); i < ei; i++) {
+        CuAssertIntEquals(tc, alAt(list, i), i + remove_count);
+    }
+    CuAssertIntEquals(tc, alSize(list), n - remove_count);
     deleteArrayList(list);
 }
 
@@ -74,6 +98,7 @@ CuSuite* CuGetArrayListSuite() {
     SUITE_ADD_TEST(suite, TestArrayListSizeAfterRealloc);
     SUITE_ADD_TEST(suite, TestArrayListClear);
     SUITE_ADD_TEST(suite, TestArrayListAt);
+    SUITE_ADD_TEST(suite, TestArrayListRemove);
 
     return suite;
 }

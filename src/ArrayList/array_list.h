@@ -29,6 +29,17 @@
 #define alAdd(this, value) _al_add(this, value)
 
 /**
+ * Removes the element at the specified position in this list.
+ * Shifts any subsequent elements to the left (subtracts one from their
+ * indices).
+ *
+ * @param this this list
+ * @param index the index of the element to be removed
+ * @return true if the removing was successful, otherwise false
+ */
+#define alRemove(this, index) _al_remove(this, index)
+
+/**
  * Returns the element at the specified position in this list.
  *
  * @param this this list
