@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.26)
-project(hash_map C)
+project(c-collections C)
 
 set(CMAKE_C_STANDARD 11)
 
