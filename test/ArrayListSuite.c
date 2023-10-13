@@ -81,6 +81,13 @@ void TestArrayListRemove(CuTest* tc) {
     deleteArrayList(list);
 }
 
+void TestArrayListRemoveFalse(CuTest* tc) {
+    ArrayList(int) list = newArrayList(int);
+    alAdd(list, 7);
+    CuAssertTrue(tc, !alRemove(list, 10));
+    deleteArrayList(list);
+}
+
 CuSuite* CuGetArrayListSuite() {
     CuSuite* suite = CuSuiteNew();
 
@@ -90,6 +97,7 @@ CuSuite* CuGetArrayListSuite() {
     SUITE_ADD_TEST(suite, TestArrayListClear);
     SUITE_ADD_TEST(suite, TestArrayListAt);
     SUITE_ADD_TEST(suite, TestArrayListRemove);
+    SUITE_ADD_TEST(suite, TestArrayListRemoveFalse);
 
     return suite;
 }
