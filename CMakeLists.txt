@@ -3,7 +3,7 @@ project(c-collections C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(hash_map main.c
+add_executable(c-collections main.c
         string.h
         string.c
         hash_map.h
