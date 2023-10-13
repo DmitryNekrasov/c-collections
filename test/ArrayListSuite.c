@@ -4,9 +4,7 @@
 
 void TestArrayListSizeEmptyList(CuTest* tc) {
     ArrayList(int) list = newArrayList(int);
-
     CuAssertIntEquals(tc, alSize(list), 0);
-
     deleteArrayList(list);
 }
 
@@ -16,9 +14,7 @@ void TestArrayListSizeBeforeRealloc(CuTest* tc) {
     for (int i = 0; i < n; i++) {
         alAdd(list, i);
     }
-
     CuAssertIntEquals(tc, alSize(list), n);
-
     deleteArrayList(list);
 }
 
@@ -28,9 +24,7 @@ void TestArrayListSizeAfterRealloc(CuTest* tc) {
     for (int i = 0; i < n; i++) {
         alAdd(list, i);
     }
-
     CuAssertIntEquals(tc, alSize(list), n);
-
     deleteArrayList(list);
 }
 
@@ -40,11 +34,9 @@ void TestArrayListClear(CuTest* tc) {
     for (int i = 0; i < n; i++) {
         alAdd(list, i);
     }
-
     CuAssertIntEquals(tc, alSize(list), n);
     alClear(list);
     CuAssertIntEquals(tc, alSize(list), 0);
-
     deleteArrayList(list);
 }
 
@@ -54,7 +46,6 @@ void TestArrayListAt(CuTest* tc) {
     for (int i = 0; i < n; i++) {
         alAdd(list, i * 2);
     }
-
     for (int i = 0, ei = alSize(list); i < ei; i++) {
         CuAssertIntEquals(tc, alAt(list, i), i * 2);
     }
