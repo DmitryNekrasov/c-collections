@@ -79,4 +79,12 @@ void __al_resize(struct __base_list* this, int new_capacity, int element_size);
  */
 #define al_at(this, index) this->__data[index]
 
+/**
+ * Removes all of the elements from this list.  The list will
+ * be empty after this call returns.
+ *
+ * @param this this list
+ */
+void al_clear(struct __base_list* this);
+
 #endif //HASH_MAP_ARRAY_LIST_H

@@ -35,3 +35,7 @@ void __al_resize(struct __base_list* this, int new_capacity, int element_size) {
     this->__data = new_data;
     this->__capacity = new_capacity;
 }
+
+void al_clear(struct __base_list* this) {
+    this->__size = 0;
+}
