@@ -40,6 +40,18 @@ void TestArrayListClear(CuTest* tc) {
     CuAssertIntEquals(tc, alSize(list), 0);
 }
 
+void TestArrayListAt(CuTest* tc) {
+    ArrayList(int) list = newArrayList(int);
+    int n = 100;
+    for (int i = 0; i < n; i++) {
+        alAdd(list, i * 2);
+    }
+
+    for (int i = 0, ei = alSize(list); i < ei; i++) {
+        CuAssertIntEquals(tc, alAt(list, i), i * 2);
+    }
+}
+
 CuSuite* CuGetArrayListSuite() {
     CuSuite* suite = CuSuiteNew();
 
@@ -47,6 +59,7 @@ CuSuite* CuGetArrayListSuite() {
     SUITE_ADD_TEST(suite, TestArrayListSizeBeforeRealloc);
     SUITE_ADD_TEST(suite, TestArrayListSizeAfterRealloc);
     SUITE_ADD_TEST(suite, TestArrayListClear);
+    SUITE_ADD_TEST(suite, TestArrayListAt);
 
     return suite;
 }
