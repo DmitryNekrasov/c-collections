@@ -88,6 +88,21 @@ void TestArrayListRemoveFalse(CuTest* tc) {
     deleteArrayList(list);
 }
 
+int int_comparator(void* a, void* b) {
+    return (int) a - (int) b;
+}
+
+void TestArrayListContains(CuTest* tc) {
+    ArrayList(int) list = newArrayList(int);
+    int n = 20;
+    for (int i = 0; i < n; i++) {
+        alAdd(list, i * 100000000);
+    }
+    CuAssertTrue(tc, alContains(list, 500000000, int_comparator));
+    CuAssertTrue(tc, !alContains(list, 123, int_comparator));
+    deleteArrayList(list);
+}
+
 CuSuite* CuGetArrayListSuite() {
     CuSuite* suite = CuSuiteNew();
 
@@ -98,6 +113,7 @@ CuSuite* CuGetArrayListSuite() {
     SUITE_ADD_TEST(suite, TestArrayListAt);
     SUITE_ADD_TEST(suite, TestArrayListRemove);
     SUITE_ADD_TEST(suite, TestArrayListRemoveFalse);
+    SUITE_ADD_TEST(suite, TestArrayListContains);
 
     return suite;
 }

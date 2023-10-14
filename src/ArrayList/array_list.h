@@ -49,6 +49,16 @@
 #define alAt(this, index) _al_at(this, index)
 
 /**
+ * Returns {@code true} if this list contains the specified element.
+ *
+ * @param this this list
+ * @param element element whose presence in this list is to be tested
+ * @param comparator function to compare two elements
+ * @return {@code true} if this list contains the specified element
+ */
+#define alContains(this, element, comparator) _al_contains(this, element, comparator)
+
+/**
  * Returns the number of elements in this list.
  *
  * @param this this list

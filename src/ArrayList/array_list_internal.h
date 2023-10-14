@@ -51,4 +51,8 @@ bool __al_remove(struct __base_list* this, int index, int element_size);
 #define _al_remove(this, index) \
     ((index < 0 || index >= this->__size) ? false : __al_remove(this, index, sizeof(*this->__data)))
 
+bool __al_contains(struct __base_list* this, void* element, int (*comparator)(void*, void*), int element_size);
+
+#define _al_contains(this, element, comparator) __al_contains(this, (void*) element, comparator, sizeof(*this->__data))
+
 #endif //HASH_MAP_ARRAY_LIST_INTERNAL_H

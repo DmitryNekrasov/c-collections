@@ -48,3 +48,14 @@ bool __al_remove(struct __base_list* this, int index, int element_size) {
     memcpy(start_ptr, start_ptr + element_size, (n - index - 1) * element_size);
     return true;
 }
+
+bool __al_contains(struct __base_list* this, void* element, int (*comparator)(void*, void*), int element_size) {
+    char* data = (char*) this->__data;
+    for (int i = 0, ei = this->__size; i < ei; i++) {
+        long long int candidate = *((long long int*) (data + i * element_size));
+        if (comparator(element, (void*) candidate) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
