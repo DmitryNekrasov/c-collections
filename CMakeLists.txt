@@ -17,4 +17,5 @@ add_executable(c-collections main.c
         test/ArrayListSuite.c
         src/Queue/queue.h
         src/Queue/queue_internal.h
-        src/Queue/queue_internal.cpp)
+        src/Queue/queue_internal.c
+        test/QueueSuite.c)
