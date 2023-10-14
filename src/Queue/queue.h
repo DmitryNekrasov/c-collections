@@ -20,4 +20,12 @@
 */
 #define deleteQueue(this) __delete_queue(this)
 
+/**
+ * Inserts the specified element into this queue
+ *
+ * @param this this queue
+ * @param element to be appended to this queue
+ */
+#define qOffer(this, value) _q_offer(this, value)
+
 #endif //C_COLLECTIONS_QUEUE_H

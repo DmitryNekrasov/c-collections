@@ -4,6 +4,10 @@
 
 void TestQueue(CuTest* tc) {
     Queue(int) queue = newQueue(int);
+    int n = 5;
+    for (int i = 0; i < n; i++) {
+        qOffer(queue, i);
+    }
     deleteQueue(queue);
 }
 

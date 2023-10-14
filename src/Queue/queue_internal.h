@@ -18,4 +18,11 @@ struct __base_queue* __new_queue(int element_size);
 
 void __delete_queue(struct __base_queue* this);
 
+#define _q_offer(this, value)                             \
+    if (this->__size == this->__capacity) {               \
+    }                                                     \
+    this->__data[this->__head] = value;                   \
+    this->__head = (this->__head + 1) % this->__capacity; \
+    this->__size++
+
 #endif //C_COLLECTIONS_QUEUE_INTERNAL_H
