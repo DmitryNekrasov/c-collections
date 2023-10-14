@@ -103,6 +103,25 @@ void TestArrayListContains(CuTest* tc) {
     deleteArrayList(list);
 }
 
+void print_char(void* x) {
+    printf("%c", (char) x);
+}
+
+int char_comparator(void* a, void* b) {
+    return (char) a - (char) b;
+}
+
+void TestArrayListCharContains(CuTest* tc) {
+    ArrayList(char) list = newArrayList(char);
+    for (char c = 'a'; c <= 'z'; c++) {
+        alAdd(list, c);
+    }
+    alPrint(list, print_char);
+    CuAssertTrue(tc, alContains(list, 'x', char_comparator));
+    CuAssertTrue(tc, !alContains(list, 'A', char_comparator));
+    deleteArrayList(list);
+}
+
 CuSuite* CuGetArrayListSuite() {
     CuSuite* suite = CuSuiteNew();
 
@@ -114,6 +133,7 @@ CuSuite* CuGetArrayListSuite() {
     SUITE_ADD_TEST(suite, TestArrayListRemove);
     SUITE_ADD_TEST(suite, TestArrayListRemoveFalse);
     SUITE_ADD_TEST(suite, TestArrayListContains);
+    SUITE_ADD_TEST(suite, TestArrayListCharContains);
 
     return suite;
 }
