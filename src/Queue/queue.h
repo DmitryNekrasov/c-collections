@@ -28,4 +28,12 @@
  */
 #define qOffer(this, value) _q_offer(this, value)
 
+/**
+ * Returns the number of elements in this queue.
+ *
+ * @param this this queue
+ * @return the number of elements in this queue
+ */
+#define qSize(this) __q_size(this)
+
 #endif //C_COLLECTIONS_QUEUE_H

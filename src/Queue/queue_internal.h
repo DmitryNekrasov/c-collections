@@ -1,6 +1,8 @@
 #ifndef C_COLLECTIONS_QUEUE_INTERNAL_H
 #define C_COLLECTIONS_QUEUE_INTERNAL_H
 
+#include <stdio.h>
+
 struct __base_queue;
 
 #define _queue(type)      \
@@ -24,5 +26,7 @@ void __delete_queue(struct __base_queue* this);
     this->__data[this->__head] = value;                   \
     this->__head = (this->__head + 1) % this->__capacity; \
     this->__size++
+
+int __q_size(struct __base_queue* this);
 
 #endif //C_COLLECTIONS_QUEUE_INTERNAL_H

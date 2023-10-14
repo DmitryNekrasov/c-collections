@@ -8,6 +8,7 @@ void TestQueue(CuTest* tc) {
     for (int i = 0; i < n; i++) {
         qOffer(queue, i);
     }
+    CuAssertIntEquals(tc, qSize(queue), n);
     deleteQueue(queue);
 }
 

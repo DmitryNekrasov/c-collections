@@ -26,3 +26,7 @@ void __delete_queue(struct __base_queue* this) {
     free(this->__data);
     free(this);
 }
+
+int __q_size(struct __base_queue* this) {
+    return this->__size;
+}
