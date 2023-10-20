@@ -29,11 +29,28 @@
 #define qOffer(this, value) _q_offer(this, value)
 
 /**
+ * Retrieves and removes the head of this queue,
+ * or returns {@code null} if this queue is empty.
+ *
+ * @param this this queue
+ * @return the head of this queue, or {@code null} if this queue is empty
+ */
+#define qPoll(this) _q_poll(this)
+
+/**
  * Returns the number of elements in this queue.
  *
  * @param this this queue
  * @return the number of elements in this queue
  */
 #define qSize(this) __q_size(this)
+
+/**
+ * Returns {@code true} if this queue contains no elements.
+ *
+ * @param this this queue
+ * @return {@code true} if this queue contains no elements
+ */
+#define qIsEmpty(this) __q_is_empty(this)
 
 #endif //C_COLLECTIONS_QUEUE_H

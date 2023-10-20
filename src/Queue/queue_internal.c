@@ -30,3 +30,16 @@ void __delete_queue(struct __base_queue* this) {
 int __q_size(struct __base_queue* this) {
     return this->__size;
 }
+
+bool __q_is_empty(struct __base_queue* this) {
+    return this->__size == 0;
+}
+
+void* __q_poll(struct __base_queue* this, int element_size) {
+    if (__q_is_empty(this)) return NULL;
+    const char* data = (const char*) this->__data;
+    void* element = (void*) *(data + this->__head * element_size);
+    this->__head = (this->__head + 1) % this->__capacity;
+    this->__size--;
+    return element;
+}
