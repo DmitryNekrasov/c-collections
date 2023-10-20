@@ -1,5 +1,5 @@
-#ifndef HASH_MAP_ARRAY_LIST_H
-#define HASH_MAP_ARRAY_LIST_H
+#ifndef C_COLLECTIONS_ARRAY_LIST_H
+#define C_COLLECTIONS_ARRAY_LIST_H
 
 #include "array_list_internal.h"
 
@@ -82,4 +82,4 @@
  */
 #define alPrint(this, print_element) _al_print(this, print_element)
 
-#endif //HASH_MAP_ARRAY_LIST_H
+#endif //C_COLLECTIONS_ARRAY_LIST_H

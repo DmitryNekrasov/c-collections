@@ -1,5 +1,5 @@
-#ifndef HASH_MAP_ARRAY_LIST_INTERNAL_H
-#define HASH_MAP_ARRAY_LIST_INTERNAL_H
+#ifndef C_COLLECTIONS_ARRAY_LIST_INTERNAL_H
+#define C_COLLECTIONS_ARRAY_LIST_INTERNAL_H
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -55,4 +55,4 @@ bool __al_contains(struct __base_list* this, void* element, int (*comparator)(vo
 
 #define _al_contains(this, element, comparator) __al_contains(this, (void*) element, comparator, sizeof(*this->__data))
 
-#endif //HASH_MAP_ARRAY_LIST_INTERNAL_H
+#endif //C_COLLECTIONS_ARRAY_LIST_INTERNAL_H

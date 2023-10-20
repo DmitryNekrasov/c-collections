@@ -1,5 +1,5 @@
-#ifndef HASH_MAP_STRING_H
-#define HASH_MAP_STRING_H
+#ifndef C_COLLECTIONS_STRING_H
+#define C_COLLECTIONS_STRING_H
 
 struct string;
 
@@ -11,4 +11,4 @@ int length(const struct string* this);
 int hash_code(const struct string* this);
 const char* c_str(const struct string* this);
 
-#endif //HASH_MAP_STRING_H
+#endif //C_COLLECTIONS_STRING_H

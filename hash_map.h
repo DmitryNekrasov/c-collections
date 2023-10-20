@@ -1,5 +1,5 @@
-#ifndef HASH_MAP_HASH_MAP_H
-#define HASH_MAP_HASH_MAP_H
+#ifndef C_COLLECTIONS_HASH_MAP_H
+#define C_COLLECTIONS_HASH_MAP_H
 
 #include "string.h"
 
@@ -17,4 +17,4 @@ void print_map(const struct hash_map* this);
 int remove_by_key(struct hash_map* this, const char* key);
 void trim_to_size(struct hash_map* this);
 
-#endif //HASH_MAP_HASH_MAP_H
+#endif //C_COLLECTIONS_HASH_MAP_H
