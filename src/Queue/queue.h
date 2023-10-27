@@ -53,4 +53,12 @@
  */
 #define qIsEmpty(this) __q_is_empty(this)
 
+/**
+ * Print a string representation of this queue in debug format
+ *
+ * @param this this queue
+ * @param print_element queue item print function
+ */
+#define qPrintDebug(this, print_element) _q_print_debug(this, print_element)
+
 #endif //C_COLLECTIONS_QUEUE_H

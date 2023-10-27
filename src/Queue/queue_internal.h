@@ -36,4 +36,25 @@ void* __q_poll(struct __base_queue* this, int element_size);
 
 #define _q_poll(this) __q_poll(this, sizeof(*this->__data))
 
+#define _q_print_debug(this, print_element)                              \
+    printf("[");                                                         \
+    typeof(*this->__data)* data = (typeof(*this->__data)*) this->__data; \
+    int in_middle = this->__tail >= this->__head;                        \
+    if (in_middle && (this->__head == 0) ||                              \
+        !in_middle && (this->__tail > 0)) {                              \
+        print_element((void*) this->__data[0]);                          \
+    } else {                                                             \
+        printf("_");                                                     \
+    }                                                                    \
+    for (int i = 1, ei = this->__capacity; i < ei; i++) {                \
+        if (in_middle && (i >= this->__head && i < this->__tail) ||      \
+            !in_middle && (i < this->__tail || i >= this->__head)) {     \
+            printf(", ");                                                \
+            print_element((void*) this->__data[i]);                      \
+        } else {                                                         \
+            printf(", _");                                               \
+        }                                                                \
+    }                                                                    \
+    printf("]\n");
+
 #endif //C_COLLECTIONS_QUEUE_INTERNAL_H

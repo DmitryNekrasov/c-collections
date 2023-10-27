@@ -18,4 +18,6 @@ add_executable(c-collections main.c
         src/Queue/queue.h
         src/Queue/queue_internal.h
         src/Queue/queue_internal.c
-        test/QueueSuite.c)
+        test/QueueSuite.c
+        src/printers.h
+        src/printers.c)

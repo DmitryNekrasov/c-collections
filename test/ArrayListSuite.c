@@ -1,6 +1,7 @@
 #include "../CuTest/CuTest.h"
 
 #include "../src/ArrayList/array_list.h"
+#include "../src/printers.h"
 
 void TestArrayListSizeEmptyList(CuTest* tc) {
     ArrayList(int) list = newArrayList(int);
@@ -52,10 +53,6 @@ void TestArrayListAt(CuTest* tc) {
     deleteArrayList(list);
 }
 
-void print_int(void* x) {
-    printf("%d", (int) x);
-}
-
 void TestArrayListRemove(CuTest* tc) {
     ArrayList(int) list = newArrayList(int);
     int n = 32;
@@ -101,10 +98,6 @@ void TestArrayListContains(CuTest* tc) {
     CuAssertTrue(tc, alContains(list, 500000000, int_comparator));
     CuAssertTrue(tc, !alContains(list, 123, int_comparator));
     deleteArrayList(list);
-}
-
-void print_char(void* x) {
-    printf("%c", (char) x);
 }
 
 int char_comparator(void* a, void* b) {
